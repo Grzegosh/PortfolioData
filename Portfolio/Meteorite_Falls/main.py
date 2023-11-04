@@ -2,10 +2,13 @@ import streamlit as st
 import pandas as pd
 from clean_data import clean_data
 from tabular_data import statistics
-
-
+from plot_area import distribution_of_mass, lineplot, count_fall, chemistry_type_bar
+import seaborn as sns
+from map_data import display_data
 
 #Setting up the overall parameters of the dashboard.
+
+sns.set_style('whitegrid')
 
 st.set_page_config(
     page_title="Meteorite Landings",
@@ -99,3 +102,23 @@ elif MENU_CHOICE == "Information about Cleaned Data":
     f'</div>',
     unsafe_allow_html=True,
 )
+
+# Plot Data
+
+elif MENU_CHOICE == "Plot Area":
+    st.header("Plot Area 📊")
+    mass, line = st.columns(2)
+    with mass:
+        distribution_of_mass()
+    with line:
+        lineplot()
+    count, chem = st.columns(2)
+    with count:    
+        count_fall()
+    with chem:
+        chemistry_type_bar()
+        
+# MAPS
+elif MENU_CHOICE == "Maps":
+    st.header("Geographic vision on Landing. 🌍")
+    display_data()

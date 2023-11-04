@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from clean_data import clean_data
 import streamlit as st
-from streamlit_dynamic_filters import DynamicFilters
+
 
 
 
@@ -48,6 +48,8 @@ def statistics():
             st.write("<span style = 'font-size:24px;'>Number of Findings and Hits by Years.</span>",unsafe_allow_html=True)
             st.dataframe(year_desc)
             
+        
+            
             
         st.subheader("Bullet Points: 🚄")
         st.write('<p class="font_class">&#8226 From overall <span class="red-text">3421</span> cities, \
@@ -71,20 +73,36 @@ def statistics():
         
         st.write('<p class="font_class">&#8226 In <span class="red-text">1979</span> , \
         we found a meteorite  \
-        <span class="red-text">3046</span> times </p>', \
+        <span class="red-text">3046</span> times, which is the biggest amount in human history. </p>', \
                 unsafe_allow_html=True)
+        
+        st.write('<p class="font_class">&#8226 Skewness is equal to  <span class="red-text">70.61</span> , \
+        which means, most of our meteorites weighted less than the mean weight.  \
+        </p>', \
+                unsafe_allow_html=True)
+        
+
     else:
         data_filtered = data.copy()
+        data_filtered = data_filtered.drop(['Reclat','Reclong','Geolocation'],axis=1)
         for item in choices:
             
             choice = st.multiselect(f"Pick a {item}", data_filtered[item].unique())
             data_filtered = data_filtered[data_filtered[item].isin(choice)]
-            st.subheader("General Information About filtered Data.")
-            st.write(data_filtered)
+        st.subheader("General Information About filtered Data.")
+        st.dataframe(data_filtered,use_container_width=True)
             
-        test = list(choices)
-        test_df = data_filtered.groupby(test)['Mass (g)'].count()
-        st.write(test_df)        
+        choises_picked = list(choices)
+        st.write("<span style = 'font-size:24px;'>Descriptive statistics of mass in KG after filtering.</span>",unsafe_allow_html=True)
+        groupped_data = data_filtered.groupby(choises_picked)['Mass (kg)'].describe()
+        skewness = data_filtered.groupby(choises_picked)['Mass (kg)'].skew()
+        var_coef_mean = data_filtered.groupby(choises_picked)['Mass (kg)'].mean()
+        var_coef_std = data_filtered.groupby(choises_picked)['Mass (kg)'].std()
+        V = round(var_coef_std / var_coef_mean) * 100
+        groupped_data['Skewness'] = skewness
+        groupped_data['Var. Coef'] = V
+        st.dataframe(groupped_data,use_container_width=True)
+  
     
             
             
