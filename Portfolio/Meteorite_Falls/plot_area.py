@@ -1,10 +1,5 @@
 from clean_data import clean_data
-import pandas as pd 
-import numpy as np
-import plotly.express as px
 import streamlit as st
-import matplotlib.pyplot as plt
-import seaborn as sns
 import plotly.graph_objects as go
 
 
