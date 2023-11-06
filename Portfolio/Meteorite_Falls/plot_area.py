@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 
 
 
+
 def distribution_of_mass():
     data = clean_data()
     bins = [0, 10, 100, 1000, 10000, 60000]
