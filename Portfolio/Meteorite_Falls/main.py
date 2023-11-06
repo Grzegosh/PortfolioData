@@ -10,12 +10,17 @@ from map_data import display_data
 
 sns.set_style('whitegrid')
 
+
+
+
 st.set_page_config(
     page_title="Meteorite Landings",
     page_icon="🛰️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+
 
 #Setting up the CSS Class
 
