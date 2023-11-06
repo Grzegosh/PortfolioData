@@ -1,5 +1,3 @@
-import folium
-from streamlit_folium import st_folium
 from clean_data import clean_data
 import streamlit as st
 
