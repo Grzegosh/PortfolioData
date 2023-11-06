@@ -10,7 +10,7 @@ def import_data(path):
     
 
 def clean_data():
-    data = import_data('/Users/grzegorznaporowski/Documents/Projekty_Pythonowe/Folder_Główny/Portfolio/Meteorite_Falls/Meteorite_Landings_20231031.csv')
+    data = import_data('Portfolio/Meteorite_Falls/Meteorite_Landings_20231031.csv')
     
     #Dealing with missing Mass (g) We will fill them with NaNMean values of the data.
     data['mass (g)'] = data['mass (g)'].fillna(np.nanmean(data['mass (g)']))
